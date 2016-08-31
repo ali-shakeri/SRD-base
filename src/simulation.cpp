@@ -2,6 +2,7 @@
 
 #include "boundary.h"
 #include "initialize.h"
+#include "triangle.h"
 
 Simulation::Simulation (const char* name) : writer{name}, N{100000}, Lx{40}, Ly{20}, Lz{3}, temperature{0.001},
                                             a{1}, write_step{10}, timestep{0}, dt{1.0} {
@@ -14,6 +15,10 @@ Simulation::Simulation (const char* name) : writer{name}, N{100000}, Lx{40}, Ly{
   init.set_initial_velocity (atoms, Point{0.1, 0.0, 0.0});
   init.set_initial_temperature (atoms, temperature);
   init.distribute_grids (grids);
+  std::vector<Triangle> triangles;
+  colloid.read_geometry ("penguin_scaled_srd.stl", triangles);
+  for (auto triangle : triangles)
+    std::cout << triangle << std::endl;
 }
 
 void Simulation::streaming_step () {

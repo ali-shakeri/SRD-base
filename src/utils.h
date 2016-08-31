@@ -10,5 +10,5 @@ std::string number_to_string (T Number) {
   ss << Number;
   return ss.str();
 }
-  
+
 #endif
